@@ -52,7 +52,9 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 Copy-Item .env.example .env
+python manage.py initdb
 python manage.py migrate
+python seed_demo.py
 python manage.py createsuperuser
 python manage.py runserver
 ```

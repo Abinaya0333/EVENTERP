@@ -70,6 +70,7 @@ export default function App() {
             <Route path="/committee/meetings" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><CommitteeMeetings /></ProtectedRoute>} />
 
             <Route path="/participant" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><BrowseEvents /></ProtectedRoute>} />
+            <Route path="/participant/events" element={<Navigate to="/participant" replace />} />
             <Route path="/participant/registrations" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><MyRegistrations /></ProtectedRoute>} />
             <Route path="/participant/feedback" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><FeedbackCertificate /></ProtectedRoute>} />
 

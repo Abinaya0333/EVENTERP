@@ -31,6 +31,7 @@ import {
   CalendarClock,
   Clipboard,
   FileBadge2,
+  MessageSquareText,
 } from 'lucide-react';
 
 export const APP_NAME = 'Chennai Institute of Technology';
@@ -82,8 +83,8 @@ export const NAV_ITEMS = {
   ],
   PARTICIPANT: [
     { label: 'Browse Events', path: '/participant', icon: BookOpenCheck },
-    { label: 'Registrations', path: '/participant/registrations', icon: ClipboardList },
-    { label: 'Feedback & Certificate', path: '/participant/feedback', icon: ReceiptText },
+    { label: 'My Registrations', path: '/participant/registrations', icon: ClipboardList },
+    { label: 'Feedback & Certificate', path: '/participant/feedback', icon: MessageSquareText },
   ],
 };
 
