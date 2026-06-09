@@ -11,7 +11,16 @@ from departments.models import Department
 from users.models import User
 
 
-PASSWORD = "Password123"
+PASSWORDS = {
+    "admin@cit.edu": "Admin@123",
+    "convener@cit.edu": "Convener@123",
+    "committee@cit.edu": "Committee@123",
+    "participant@cit.edu": "Participant@123",
+    "sanctioner@cit.edu": "Password123",
+    "hod@cit.edu": "Hod@123456",
+    "dean@cit.edu": "Dean@123456",
+    "principal@cit.edu": "Principal@123456",
+}
 
 
 def upsert_user(email, name, role, is_staff=False, is_superuser=False, approval_level=None, approval_title=""):
@@ -32,7 +41,7 @@ def upsert_user(email, name, role, is_staff=False, is_superuser=False, approval_
     user.is_staff = is_staff
     user.is_superuser = is_superuser
     user.is_active = True
-    user.set_password(PASSWORD)
+    user.set_password(PASSWORDS.get(email, "Password123"))
     user.save()
     Profile.objects.update_or_create(
         user=user,
@@ -54,13 +63,9 @@ upsert_user("hod@cit.edu", "HoD Sanctioner", Profile.Role.SANCTIONER, approval_l
 upsert_user("dean@cit.edu", "Dean Sanctioner", Profile.Role.SANCTIONER, approval_level=2, approval_title="DEAN")
 upsert_user("principal@cit.edu", "Principal Sanctioner", Profile.Role.SANCTIONER, approval_level=3, approval_title="PRINCIPAL")
 
-for email, password in {
-    "hod@cit.edu": "Hod@123456",
-    "dean@cit.edu": "Dean@123456",
-    "principal@cit.edu": "Principal@123456",
-}.items():
+for email, password in PASSWORDS.items():
     user = User.objects.get(email=email)
     user.set_password(password)
     user.save(update_fields=["password"])
 
-print(f"password for all demo users: {PASSWORD}")
+print("demo passwords updated to match the reference workflow")

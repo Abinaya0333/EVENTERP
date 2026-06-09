@@ -46,23 +46,23 @@ export const ROLE_LABELS = {
 };
 
 export const ROLE_HOME = {
-  ADMIN: '/admin',
-  CONVENER: '/convener',
-  PARTICIPANT: '/participant',
-  SANCTIONER: '/sanctioner',
-  COMMITTEE_MEMBER: '/committee',
+  ADMIN: '/admin/dashboard',
+  CONVENER: '/convener/dashboard',
+  PARTICIPANT: '/participant/dashboard',
+  SANCTIONER: '/sanctioner/dashboard',
+  COMMITTEE_MEMBER: '/committee/dashboard',
 };
 
 export const NAV_ITEMS = {
   ADMIN: [
-    { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { label: 'Users', path: '/admin/users', icon: UsersRound },
     { label: 'Departments', path: '/admin/departments', icon: Building2 },
     { label: 'Permissions', path: '/admin/permissions', icon: ShieldCheck },
     { label: 'Audit Log', path: '/admin/audit', icon: FileClock },
   ],
   CONVENER: [
-    { label: 'Events', path: '/convener', icon: CalendarRange },
+    { label: 'Dashboard', path: '/convener/dashboard', icon: CalendarRange },
     { label: 'Create Event', path: '/convener/create', icon: CalendarPlus2 },
     { label: 'Template', path: '/convener/form-template', icon: ClipboardType },
     { label: 'Execute', path: '/convener/execute', icon: Sparkles },
@@ -72,16 +72,17 @@ export const NAV_ITEMS = {
     { label: 'Reports', path: '/convener/reports', icon: FileBarChart2 },
   ],
   SANCTIONER: [
-    { label: 'Approvals', path: '/sanctioner', icon: BadgeCheck },
+    { label: 'Dashboard', path: '/sanctioner/dashboard', icon: BadgeCheck },
     { label: 'History', path: '/sanctioner/history', icon: ClipboardCheck },
     { label: 'Budget Ledger', path: '/sanctioner/budget', icon: WalletCards },
   ],
   COMMITTEE_MEMBER: [
-    { label: 'Tasks', path: '/committee', icon: ListChecks },
+    { label: 'Dashboard', path: '/committee/dashboard', icon: ListChecks },
     { label: 'Attendance', path: '/committee/attendance', icon: CheckCircle2 },
     { label: 'Meetings', path: '/committee/meetings', icon: Presentation },
   ],
   PARTICIPANT: [
+    { label: 'Dashboard', path: '/participant/dashboard', icon: BookOpenCheck },
     { label: 'Browse Events', path: '/participant', icon: BookOpenCheck },
     { label: 'My Registrations', path: '/participant/registrations', icon: ClipboardList },
     { label: 'Feedback & Certificate', path: '/participant/feedback', icon: MessageSquareText },

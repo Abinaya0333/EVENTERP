@@ -3,6 +3,7 @@ import { Award, Bell, CalendarCheck2, List, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const navItems = [
+  { label: 'Dashboard', path: '/participant/dashboard', icon: List },
   { label: 'Browse Events', path: '/participant', icon: List },
   { label: 'My Registrations', path: '/participant/registrations', icon: CalendarCheck2 },
   { label: 'Feedback & Certs', path: '/participant/feedback', icon: Award },

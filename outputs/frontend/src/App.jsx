@@ -34,6 +34,7 @@ import CommitteeMeetings from './pages/committee/CommitteeMeetings';
 import BrowseEvents from './pages/participant/BrowseEvents';
 import MyRegistrations from './pages/participant/MyRegistrations';
 import FeedbackCertificate from './pages/participant/FeedbackCertificate';
+import ParticipantDashboard from './pages/participant/ParticipantDashboard';
 
 export default function App() {
   return (
@@ -46,13 +47,15 @@ export default function App() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/dashboard" element={<ProtectedRoute><DashboardRedirect /></ProtectedRoute>} />
 
-            <Route path="/admin" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute allowedRoles={['ADMIN']}><UserManagement /></ProtectedRoute>} />
             <Route path="/admin/departments" element={<ProtectedRoute allowedRoles={['ADMIN']}><Departments /></ProtectedRoute>} />
             <Route path="/admin/permissions" element={<ProtectedRoute allowedRoles={['ADMIN']}><PermissionMatrix /></ProtectedRoute>} />
             <Route path="/admin/audit" element={<ProtectedRoute allowedRoles={['ADMIN']}><AuditLogs /></ProtectedRoute>} />
 
-            <Route path="/convener" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><MyEvents /></ProtectedRoute>} />
+            <Route path="/convener" element={<Navigate to="/convener/dashboard" replace />} />
+            <Route path="/convener/dashboard" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><MyEvents /></ProtectedRoute>} />
             <Route path="/convener/create" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><CreateEvent /></ProtectedRoute>} />
             <Route path="/convener/form-template" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><RegistrationFormTemplate /></ProtectedRoute>} />
             <Route path="/convener/execute" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ExecutePanel /></ProtectedRoute>} />
@@ -61,16 +64,19 @@ export default function App() {
             <Route path="/convener/meetings" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ConvenerMeetings /></ProtectedRoute>} />
             <Route path="/convener/reports" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><CloseEventReports /></ProtectedRoute>} />
 
-            <Route path="/sanctioner" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalRequests /></ProtectedRoute>} />
+            <Route path="/sanctioner" element={<Navigate to="/sanctioner/dashboard" replace />} />
+            <Route path="/sanctioner/dashboard" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalRequests /></ProtectedRoute>} />
             <Route path="/sanctioner/history" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalHistory /></ProtectedRoute>} />
             <Route path="/sanctioner/budget" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><BudgetLedger /></ProtectedRoute>} />
 
-            <Route path="/committee" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><MyTasks /></ProtectedRoute>} />
+            <Route path="/committee" element={<Navigate to="/committee/dashboard" replace />} />
+            <Route path="/committee/dashboard" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><MyTasks /></ProtectedRoute>} />
             <Route path="/committee/attendance" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><Attendance /></ProtectedRoute>} />
             <Route path="/committee/meetings" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><CommitteeMeetings /></ProtectedRoute>} />
 
-            <Route path="/participant" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><BrowseEvents /></ProtectedRoute>} />
-            <Route path="/participant/events" element={<Navigate to="/participant" replace />} />
+            <Route path="/participant" element={<Navigate to="/participant/dashboard" replace />} />
+            <Route path="/participant/dashboard" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><BrowseEvents /></ProtectedRoute>} />
+            <Route path="/participant/events" element={<Navigate to="/participant/dashboard" replace />} />
             <Route path="/participant/registrations" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><MyRegistrations /></ProtectedRoute>} />
             <Route path="/participant/feedback" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><FeedbackCertificate /></ProtectedRoute>} />
 
