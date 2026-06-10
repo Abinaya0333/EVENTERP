@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
-import DashboardLayout from '../../components/DashboardLayout';
+import ConvenerLayout from '../../components/ConvenerLayout';
 import { SectionHeader } from '../../components/Primitives';
 import api from '../../services/api';
 
@@ -21,14 +21,14 @@ export default function RegistrationFormTemplate() {
         setQr('');
         return;
       }
-      const url = `${window.location.origin}/participant/registrations?event=${selectedEvent.id}`;
+      const url = `${window.location.origin}/participant/register?event=${selectedEvent.id}`;
       setQr(await QRCode.toDataURL(url, { margin: 1, scale: 6 }));
     };
     loadQr().catch(console.error);
   }, [selectedEvent]);
 
   return (
-    <DashboardLayout
+    <ConvenerLayout
       title="Registration Form Template"
       subtitle="Share a clean registration QR and keep the event intake shape consistent."
     >
@@ -62,7 +62,7 @@ export default function RegistrationFormTemplate() {
           <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
             <p className="font-medium text-slate-900">Registration URL</p>
             <p className="mt-1 break-all text-slate-600">
-              {selectedEvent ? `${window.location.origin}/participant?event=${selectedEvent.id}` : 'Pick an event to generate the link'}
+              {selectedEvent ? `${window.location.origin}/participant/register?event=${selectedEvent.id}` : 'Pick an event to generate the link'}
             </p>
           </div>
         </div>
@@ -75,6 +75,6 @@ export default function RegistrationFormTemplate() {
           {selectedEvent ? <p className="mt-4 text-center text-sm font-medium text-slate-900">{selectedEvent.title}</p> : null}
         </div>
       </section>
-    </DashboardLayout>
+    </ConvenerLayout>
   );
 }

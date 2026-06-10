@@ -2,11 +2,10 @@ import { LogOut, Search } from 'lucide-react';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { getNavItems, getRoleLabel } from '../lib/navigation';
+import { getNavItems, getRoleLabel, APP_NAME, APP_SUBTITLE } from '../lib/navigation';
 import NotificationBell from './NotificationBell';
 import Sidebar from './Sidebar';
 import { IconButton, ToolbarInput } from './Primitives';
-import { APP_NAME, APP_SUBTITLE } from '../lib/navigation';
 
 export default function DashboardLayout({ title, subtitle, actions, children, navItems }) {
   const { profile, signOut } = useAuth();
@@ -20,7 +19,7 @@ export default function DashboardLayout({ title, subtitle, actions, children, na
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen overflow-x-hidden bg-slate-50">
       <Sidebar items={sidebarItems} user={profile} onSignOut={handleSignOut} />
 
       <div className="min-h-screen lg:pl-[300px]">
@@ -33,7 +32,7 @@ export default function DashboardLayout({ title, subtitle, actions, children, na
                 onClick={() => window.dispatchEvent(new CustomEvent('toggle-sidebar'))}
               >
                 <span className="sr-only">Toggle sidebar</span>
-                <span className="text-xl leading-none">≡</span>
+                <span className="text-xl leading-none">&#8801;</span>
               </button>
               <div className="min-w-0">
                 <p className="truncate text-[15px] font-bold text-slate-900">{APP_NAME}</p>

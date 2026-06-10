@@ -1,11 +1,11 @@
-import DashboardLayout from '../../components/DashboardLayout';
+import ConvenerLayout from '../../components/ConvenerLayout';
 import CrudPage from '../../components/CrudPage';
 import { committeePage, committeeMemberPage, taskPage } from '../../lib/pageConfigs';
 import { SectionHeader } from '../../components/Primitives';
 
 export default function CommitteeTasks() {
   return (
-    <DashboardLayout
+    <ConvenerLayout
       title="Committees and Tasks"
       subtitle="Build committee structures, assign members, and keep task ownership visible."
     >
@@ -29,6 +29,6 @@ export default function CommitteeTasks() {
           <CrudPage {...taskPage} />
         </div>
       </section>
-    </DashboardLayout>
+    </ConvenerLayout>
   );
 }

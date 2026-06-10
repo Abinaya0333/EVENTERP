@@ -75,7 +75,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.select_related("profile", "profile__department").all().order_by("id")
 
     def get_permissions(self):
-        if self.action in {"me"}:
+        if self.action in {"me", "search"}:
+            return [IsAuthenticated()]
+        if self.action in {"list", "retrieve"}:
             return [IsAuthenticated()]
         return [IsAdminRole()]
 
@@ -83,6 +85,24 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action in {"list", "retrieve", "me"}:
             return UserDetailSerializer
         return UserWriteSerializer
+
+    @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
+    def search(self, request):
+        query = request.query_params.get("q", "").strip()
+        qs = User.objects.select_related("profile", "profile__department").all().order_by("id")
+
+        if query:
+            from django.db.models import Q
+
+            qs = qs.filter(
+                Q(email__icontains=query)
+                | Q(first_name__icontains=query)
+                | Q(last_name__icontains=query)
+                | Q(username__icontains=query)
+            )
+
+        qs = qs[:25]
+        return Response(UserDetailSerializer(qs, many=True).data)
 
     @action(detail=False, methods=["get", "patch"], permission_classes=[IsAuthenticated])
     def me(self, request):

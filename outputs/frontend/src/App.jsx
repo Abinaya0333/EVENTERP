@@ -14,14 +14,21 @@ import PermissionMatrix from './pages/admin/PermissionMatrix';
 import Departments from './pages/admin/Departments';
 import AuditLogs from './pages/admin/AuditLogs';
 
+import ConvenerDashboard from './pages/convener/ConvenerDashboard';
+import EventDetails from './pages/convener/EventDetails';
+import EventSchedule from './pages/convener/EventSchedule';
 import MyEvents from './pages/convener/MyEvents';
 import CreateEvent from './pages/convener/CreateEvent';
 import RegistrationFormTemplate from './pages/convener/RegistrationFormTemplate';
 import ExecutePanel from './pages/convener/ExecutePanel';
 import LiveRegistration from './pages/convener/LiveRegistration';
 import CommitteeTasks from './pages/convener/CommitteeTasks';
+import Teams from './pages/convener/Teams';
+import ResourcePersons from './pages/convener/ResourcePersons';
 import ConvenerMeetings from './pages/convener/ConvenerMeetings';
 import CloseEventReports from './pages/convener/CloseEventReports';
+import RegistrationDetails from './pages/convener/RegistrationDetails';
+import ExpensesLedger from './pages/convener/ExpensesLedger';
 
 import ApprovalRequests from './pages/sanctioner/ApprovalRequests';
 import ApprovalHistory from './pages/sanctioner/ApprovalHistory';
@@ -32,6 +39,7 @@ import Attendance from './pages/committee/Attendance';
 import CommitteeMeetings from './pages/committee/CommitteeMeetings';
 
 import BrowseEvents from './pages/participant/BrowseEvents';
+import RegisterEvent from './pages/participant/RegisterEvent';
 import MyRegistrations from './pages/participant/MyRegistrations';
 import FeedbackCertificate from './pages/participant/FeedbackCertificate';
 
@@ -52,16 +60,25 @@ export default function App() {
             <Route path="/admin/permissions" element={<ProtectedRoute allowedRoles={['ADMIN']}><PermissionMatrix /></ProtectedRoute>} />
             <Route path="/admin/audit" element={<ProtectedRoute allowedRoles={['ADMIN']}><AuditLogs /></ProtectedRoute>} />
 
-            <Route path="/convener" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><MyEvents /></ProtectedRoute>} />
+            <Route path="/convener" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ConvenerDashboard /></ProtectedRoute>} />
+            <Route path="/convener/dashboard" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ConvenerDashboard /></ProtectedRoute>} />
+            <Route path="/convener/details" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><EventDetails /></ProtectedRoute>} />
+            <Route path="/convener/schedule" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><EventSchedule /></ProtectedRoute>} />
+            <Route path="/convener/events" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><MyEvents /></ProtectedRoute>} />
             <Route path="/convener/create" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><CreateEvent /></ProtectedRoute>} />
             <Route path="/convener/form-template" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><RegistrationFormTemplate /></ProtectedRoute>} />
             <Route path="/convener/execute" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ExecutePanel /></ProtectedRoute>} />
             <Route path="/convener/live" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><LiveRegistration /></ProtectedRoute>} />
+            <Route path="/convener/registrations" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><RegistrationDetails /></ProtectedRoute>} />
+            <Route path="/convener/teams" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><Teams /></ProtectedRoute>} />
             <Route path="/convener/committees" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><CommitteeTasks /></ProtectedRoute>} />
+            <Route path="/convener/resource-persons" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ResourcePersons /></ProtectedRoute>} />
+            <Route path="/convener/expenses" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ExpensesLedger /></ProtectedRoute>} />
             <Route path="/convener/meetings" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><ConvenerMeetings /></ProtectedRoute>} />
             <Route path="/convener/reports" element={<ProtectedRoute allowedRoles={['CONVENER', 'ADMIN']}><CloseEventReports /></ProtectedRoute>} />
 
             <Route path="/sanctioner" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalRequests /></ProtectedRoute>} />
+            <Route path="/sanctioner/dashboard" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalRequests /></ProtectedRoute>} />
             <Route path="/sanctioner/history" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><ApprovalHistory /></ProtectedRoute>} />
             <Route path="/sanctioner/budget" element={<ProtectedRoute allowedRoles={['SANCTIONER', 'ADMIN']}><BudgetLedger /></ProtectedRoute>} />
 
@@ -70,6 +87,7 @@ export default function App() {
             <Route path="/committee/meetings" element={<ProtectedRoute allowedRoles={['COMMITTEE_MEMBER', 'ADMIN']}><CommitteeMeetings /></ProtectedRoute>} />
 
             <Route path="/participant" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><BrowseEvents /></ProtectedRoute>} />
+            <Route path="/participant/register" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><RegisterEvent /></ProtectedRoute>} />
             <Route path="/participant/registrations" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><MyRegistrations /></ProtectedRoute>} />
             <Route path="/participant/feedback" element={<ProtectedRoute allowedRoles={['PARTICIPANT', 'ADMIN']}><FeedbackCertificate /></ProtectedRoute>} />
 

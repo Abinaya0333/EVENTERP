@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -8,6 +9,9 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthentic
 from common.permissions import IsAdminConvenerOrCommittee, IsAdminOrConvener, Roles, user_role
 from .models import Attendance, Certificate, Event, Feedback, Registration
 from .serializers import AttendanceSerializer, CertificateSerializer, EventSerializer, FeedbackSerializer, RegistrationSerializer
+
+
+User = get_user_model()
 
 
 class CanReadEventsWriteAsStaff(BasePermission):
@@ -62,10 +66,22 @@ class RegistrationViewSet(viewsets.ModelViewSet):
             qs = qs.filter(user=self.request.user)
         elif role == Roles.CONVENER:
             qs = qs.filter(event__created_by=self.request.user)
+
+        event_id = self.request.query_params.get("event")
+        if event_id:
+            qs = qs.filter(event_id=event_id)
+
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        target_user = self.request.user
+        requester_role = user_role(self.request.user)
+        requested_user_id = self.request.data.get("user") or self.request.data.get("user_id")
+
+        if requested_user_id and requester_role in {Roles.ADMIN, Roles.CONVENER, Roles.COMMITTEE_MEMBER}:
+            target_user = User.objects.filter(pk=requested_user_id).first() or self.request.user
+
+        serializer.save(user=target_user)
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):

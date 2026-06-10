@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
   const signIn = async (email, password) => {
     try {
       const { data } = await api.post('/token/', {
-        username: email,   // IMPORTANT FIX
+        email: email.trim().toLowerCase(),
         password: password,
       });
 

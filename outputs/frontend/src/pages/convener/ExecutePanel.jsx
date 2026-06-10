@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle2, PlayCircle } from 'lucide-react';
-import DashboardLayout from '../../components/DashboardLayout';
+import ConvenerLayout from '../../components/ConvenerLayout';
 import CrudPage from '../../components/CrudPage';
 import { createApiAction, eventPage } from '../../lib/pageConfigs';
 import { SectionHeader, StatCard } from '../../components/Primitives';
@@ -52,7 +52,7 @@ export default function ExecutePanel() {
   }, []);
 
   return (
-    <DashboardLayout
+    <ConvenerLayout
       title="Execute Panel"
       subtitle="Push events through approval and completion while keeping the operational picture visible."
     >
@@ -68,6 +68,6 @@ export default function ExecutePanel() {
           <CrudPage {...config} />
         </div>
       </section>
-    </DashboardLayout>
+    </ConvenerLayout>
   );
 }
