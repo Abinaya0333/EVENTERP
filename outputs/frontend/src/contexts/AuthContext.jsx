@@ -74,9 +74,20 @@ export function AuthProvider({ children }) {
 
       return { error: null, data: profileData };
     } catch (error) {
-      console.error('Login error', error);
+      console.error('Login error', error.response?.data || error.message);
+      const errorData = error.response?.data;
+      let errorMessage = 'Invalid credentials';
+      
+      if (errorData?.detail) {
+        errorMessage = errorData.detail;
+      } else if (errorData?.email) {
+        errorMessage = Array.isArray(errorData.email) ? errorData.email[0] : errorData.email;
+      } else if (errorData?.password) {
+        errorMessage = Array.isArray(errorData.password) ? errorData.password[0] : errorData.password;
+      }
+      
       return {
-        error: error.response?.data || { detail: 'Invalid credentials' },
+        error: { detail: errorMessage },
         data: null,
       };
     }
@@ -96,10 +107,23 @@ export function AuthProvider({ children }) {
 
       return { data, error: null };
     } catch (error) {
-      console.error('Registration error', error);
+      console.error('Registration error', error.response?.data || error.message);
+      const errorData = error.response?.data;
+      let errorMessage = 'Registration failed';
+      
+      if (errorData?.detail) {
+        errorMessage = errorData.detail;
+      } else if (errorData?.email) {
+        errorMessage = Array.isArray(errorData.email) ? errorData.email[0] : errorData.email;
+      } else if (errorData?.password) {
+        errorMessage = Array.isArray(errorData.password) ? errorData.password[0] : errorData.password;
+      } else if (errorData?.non_field_errors) {
+        errorMessage = Array.isArray(errorData.non_field_errors) ? errorData.non_field_errors[0] : errorData.non_field_errors;
+      }
+      
       return {
         data: null,
-        error: error.response?.data || { detail: 'Registration failed' },
+        error: { detail: errorMessage },
       };
     }
   };

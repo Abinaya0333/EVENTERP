@@ -16,17 +16,24 @@ User = get_user_model()
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
+    username = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
     def validate(self, attrs):
         email = attrs.get("email", "").strip().lower()
         password = attrs.get("password", "")
 
+        if not email or not password:
+            raise serializers.ValidationError({"detail": "Email and password are required."})
+
         user = User.objects.filter(email__iexact=email).select_related("profile", "profile__department").first()
-        if not user or not user.check_password(password):
-            raise serializers.ValidationError({"detail": "No active account found with the given credentials"})
+        if not user:
+            raise serializers.ValidationError({"detail": "No account found with this email address."})
+
+        if not user.check_password(password):
+            raise serializers.ValidationError({"detail": "Invalid password. Please check and try again."})
 
         if not user.is_active:
-            raise serializers.ValidationError({"detail": "This account is inactive."})
+            raise serializers.ValidationError({"detail": "This account has been deactivated. Please contact support."})
 
         refresh = RefreshToken.for_user(user)
         data = {
