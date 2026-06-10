@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from accounts.views import ProfileViewSet
+from common.views import PermissionRuleViewSet
 from committees.views import CommitteeMemberViewSet, CommitteeViewSet, TaskViewSet
 from departments.views import DepartmentViewSet
-from events.views import AttendanceViewSet, CertificateViewSet, EventViewSet, FeedbackViewSet, RegistrationViewSet
+from events.views import ApprovalRequestViewSet, AttendanceViewSet, CertificateViewSet, EventViewSet, FeedbackViewSet, RegistrationViewSet
 from finance.views import BudgetViewSet, ExpenseViewSet
 from notifications.views import EventReportViewSet, NotificationViewSet
 from users.views import (
@@ -25,9 +26,11 @@ from users.views import (
 router = DefaultRouter()
 router.include_root_view = False
 router.register("users", UserViewSet, basename="user")
+router.register("permission-rules", PermissionRuleViewSet, basename="permission-rule")
 router.register("profiles", ProfileViewSet, basename="profile")
 router.register("departments", DepartmentViewSet, basename="department")
 router.register("events", EventViewSet, basename="event")
+router.register("approval-requests", ApprovalRequestViewSet, basename="approval-request")
 router.register("registrations", RegistrationViewSet, basename="registration")
 router.register("attendance", AttendanceViewSet, basename="attendance")
 router.register("feedback", FeedbackViewSet, basename="feedback")

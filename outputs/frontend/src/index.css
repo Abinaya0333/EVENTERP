@@ -13,6 +13,11 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
   body { @apply bg-gray-50 text-gray-900; }
+  input,
+  textarea,
+  select {
+    @apply text-black placeholder:text-slate-400;
+  }
 }
 
 @layer components {
@@ -29,7 +34,7 @@
     @apply border border-cit-blue text-cit-blue px-4 py-2 rounded-lg font-medium hover:bg-cit-blue hover:text-white transition-colors;
   }
   .input-field {
-    @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cit-blue focus:border-transparent transition-all;
+    @apply w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cit-blue focus:border-transparent transition-all;
   }
   .card {
     @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;

@@ -12,6 +12,8 @@ class Profile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     role = models.CharField(max_length=30, choices=Role.choices, default=Role.PARTICIPANT)
+    approval_level = models.PositiveSmallIntegerField(null=True, blank=True)
+    approval_title = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     department = models.ForeignKey("departments.Department", on_delete=models.SET_NULL, null=True, blank=True, related_name="profiles")
 

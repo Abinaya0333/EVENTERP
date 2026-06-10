@@ -65,6 +65,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 class UserDetailSerializer(serializers.ModelSerializer):
     role = serializers.CharField(source="profile.role", read_only=True)
+    approval_level = serializers.IntegerField(source="profile.approval_level", read_only=True)
+    approval_title = serializers.CharField(source="profile.approval_title", read_only=True)
     phone = serializers.CharField(source="profile.phone", read_only=True)
     department = serializers.CharField(source="profile.department.name", read_only=True)
     department_id = serializers.IntegerField(source="profile.department_id", read_only=True)
@@ -80,6 +82,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "last_name",
             "name",
             "role",
+            "approval_level",
+            "approval_title",
             "phone",
             "department",
             "department_id",
@@ -95,6 +99,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 class UserWriteSerializer(serializers.ModelSerializer):
     role = serializers.ChoiceField(choices=Profile.Role.choices, write_only=True, required=False)
+    approval_level = serializers.IntegerField(write_only=True, required=False, allow_null=True)
+    approval_title = serializers.CharField(write_only=True, required=False, allow_blank=True)
     phone = serializers.CharField(write_only=True, required=False, allow_blank=True)
     department_id = serializers.IntegerField(write_only=True, required=False, allow_null=True)
     password = serializers.CharField(write_only=True, required=False, min_length=8)
@@ -109,6 +115,8 @@ class UserWriteSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "role",
+            "approval_level",
+            "approval_title",
             "phone",
             "department_id",
             "is_staff",
@@ -119,6 +127,8 @@ class UserWriteSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_data = {
             "role": validated_data.pop("role", Profile.Role.PARTICIPANT),
+            "approval_level": validated_data.pop("approval_level", None),
+            "approval_title": validated_data.pop("approval_title", ""),
             "phone": validated_data.pop("phone", ""),
             "department_id": validated_data.pop("department_id", None),
         }
@@ -135,7 +145,7 @@ class UserWriteSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         profile_fields = {}
-        for key in ("role", "phone", "department_id"):
+        for key in ("role", "approval_level", "approval_title", "phone", "department_id"):
             if key in validated_data:
                 profile_fields[key] = validated_data.pop(key)
         password = validated_data.pop("password", None)

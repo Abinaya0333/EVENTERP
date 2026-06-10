@@ -31,6 +31,7 @@ import {
   CalendarClock,
   Clipboard,
   FileBadge2,
+  MessageSquareText,
 } from 'lucide-react';
 
 export const APP_NAME = 'Chennai Institute of Technology';
@@ -45,24 +46,36 @@ export const ROLE_LABELS = {
 };
 
 export const ROLE_HOME = {
+<<<<<<< HEAD
   ADMIN: '/admin',
   CONVENER: '/convener',
   PARTICIPANT: '/participant',
   SANCTIONER: '/sanctioner/dashboard',
   COMMITTEE_MEMBER: '/committee',
+=======
+  ADMIN: '/admin/dashboard',
+  CONVENER: '/convener/dashboard',
+  PARTICIPANT: '/participant/dashboard',
+  SANCTIONER: '/sanctioner/dashboard',
+  COMMITTEE_MEMBER: '/committee/dashboard',
+>>>>>>> ccb9f562e7b424c9b22862534d480c809f89c3d9
 };
 
 export const NAV_ITEMS = {
   ADMIN: [
-    { label: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { label: 'Users', path: '/admin/users', icon: UsersRound },
     { label: 'Departments', path: '/admin/departments', icon: Building2 },
     { label: 'Permissions', path: '/admin/permissions', icon: ShieldCheck },
     { label: 'Audit Log', path: '/admin/audit', icon: FileClock },
   ],
   CONVENER: [
+<<<<<<< HEAD
     { label: 'Dashboard', path: '/convener', icon: LayoutDashboard },
     { label: 'Event Details', path: '/convener/details', icon: FileText },
+=======
+    { label: 'Dashboard', path: '/convener/dashboard', icon: CalendarRange },
+>>>>>>> ccb9f562e7b424c9b22862534d480c809f89c3d9
     { label: 'Create Event', path: '/convener/create', icon: CalendarPlus2 },
     { label: 'Event Schedule', path: '/convener/schedule', icon: CalendarRange },
     { label: 'Registration Template', path: '/convener/form-template', icon: ClipboardType },
@@ -82,14 +95,15 @@ export const NAV_ITEMS = {
     { label: 'Budget Ledger', path: '/sanctioner/budget', icon: WalletCards },
   ],
   COMMITTEE_MEMBER: [
-    { label: 'Tasks', path: '/committee', icon: ListChecks },
+    { label: 'Dashboard', path: '/committee/dashboard', icon: ListChecks },
     { label: 'Attendance', path: '/committee/attendance', icon: CheckCircle2 },
     { label: 'Meetings', path: '/committee/meetings', icon: Presentation },
   ],
   PARTICIPANT: [
+    { label: 'Dashboard', path: '/participant/dashboard', icon: BookOpenCheck },
     { label: 'Browse Events', path: '/participant', icon: BookOpenCheck },
-    { label: 'Registrations', path: '/participant/registrations', icon: ClipboardList },
-    { label: 'Feedback & Certificate', path: '/participant/feedback', icon: ReceiptText },
+    { label: 'My Registrations', path: '/participant/registrations', icon: ClipboardList },
+    { label: 'Feedback & Certificate', path: '/participant/feedback', icon: MessageSquareText },
   ],
 };
 

@@ -17,6 +17,7 @@ class Event(models.Model):
     end_date = models.DateTimeField()
     location = models.CharField(max_length=200)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    approval_level = models.PositiveSmallIntegerField(default=1)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_events")
     department = models.ForeignKey("departments.Department", on_delete=models.CASCADE, related_name="events")
 
@@ -82,3 +83,23 @@ class Certificate(models.Model):
         db_table = "events_certificate"
         unique_together = ("event", "user")
         ordering = ("-issued_at",)
+
+
+class ApprovalRequest(models.Model):
+    class Decision(models.TextChoices):
+        PENDING = "PENDING", "Pending"
+        APPROVED = "APPROVED", "Approved"
+        REJECTED = "REJECTED", "Rejected"
+        SENT_BACK = "SENT_BACK", "Sent back"
+
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="approval_requests")
+    level = models.PositiveSmallIntegerField()
+    decision = models.CharField(max_length=20, choices=Decision.choices, default=Decision.PENDING)
+    decided_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="approval_decisions")
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    decided_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = "events_approval_request"
+        ordering = ("-created_at",)

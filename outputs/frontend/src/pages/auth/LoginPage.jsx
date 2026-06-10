@@ -18,6 +18,17 @@ function FieldError({ msg }) {
   );
 }
 
+function getErrorMessage(error, fallback) {
+  if (!error) return fallback;
+  if (typeof error === 'string') return error;
+  if (error.detail) return error.detail;
+  if (error.message) return error.message;
+  const firstValue = Object.values(error)[0];
+  if (Array.isArray(firstValue)) return firstValue[0];
+  if (typeof firstValue === 'string') return firstValue;
+  return fallback;
+}
+
 export default function LoginPage() {
   const [tab, setTab] = useState('signin');
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +89,7 @@ export default function LoginPage() {
     setLoading(true);
     const { error } = await signIn(siEmail, siPassword);
     setLoading(false);
-    if (error) { toastError(error.message || 'Invalid credentials'); return; }
+    if (error) { toastError(getErrorMessage(error, 'Invalid credentials')); return; }
     navigate('/dashboard');
   };
 
@@ -89,7 +100,7 @@ export default function LoginPage() {
     setLoading(true);
     const { error } = await signUp(suEmail, suPassword, suName);
     setLoading(false);
-    if (error) { toastError(error.message); return; }
+    if (error) { toastError(getErrorMessage(error, 'Registration failed')); return; }
     success('Account created! You can now sign in.');
     setTab('signin');
   };
@@ -139,7 +150,7 @@ export default function LoginPage() {
                       value={siEmail}
                       onChange={(e) => setSiEmail(e.target.value)}
                       onBlur={() => setSiTouched((p) => ({ ...p, email: true }))}
-                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                       placeholder="you@cit.edu"
                       autoComplete="email"
                     />
@@ -158,7 +169,7 @@ export default function LoginPage() {
                         value={siPassword}
                         onChange={(e) => setSiPassword(e.target.value)}
                         onBlur={() => setSiTouched((p) => ({ ...p, password: true }))}
-                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                         placeholder="••••••••"
                         autoComplete="current-password"
                       />
@@ -189,7 +200,7 @@ export default function LoginPage() {
                       value={suName}
                       onChange={(e) => setSuName(e.target.value)}
                       onBlur={() => setSuTouched((p) => ({ ...p, name: true }))}
-                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                       placeholder="Your full name"
                     />
                     {suTouched.name && <FieldError msg={suErrors.name} />}
@@ -201,7 +212,7 @@ export default function LoginPage() {
                       value={suEmail}
                       onChange={(e) => setSuEmail(e.target.value)}
                       onBlur={() => setSuTouched((p) => ({ ...p, email: true }))}
-                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                      className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                       placeholder="you@example.com"
                     />
                     {suTouched.email && <FieldError msg={suErrors.email} />}
@@ -214,7 +225,7 @@ export default function LoginPage() {
                         value={suPassword}
                         onChange={(e) => setSuPassword(e.target.value)}
                         onBlur={() => setSuTouched((p) => ({ ...p, password: true }))}
-                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                         placeholder="Min 8 chars, uppercase & number"
                       />
                       <button
@@ -243,7 +254,7 @@ export default function LoginPage() {
                         value={suConfirm}
                         onChange={(e) => setSuConfirm(e.target.value)}
                         onBlur={() => setSuTouched((p) => ({ ...p, confirm: true }))}
-                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
+                        className="w-full rounded-xl border border-slate-200 bg-[#eef3fb] px-4 py-3 pr-11 text-[16px] text-black placeholder:text-slate-400 outline-none transition focus:border-[#0b3769] focus:ring-2 focus:ring-[#0b3769]/15"
                         placeholder="Re-enter password"
                       />
                       {suConfirm && suConfirm === suPassword && (
