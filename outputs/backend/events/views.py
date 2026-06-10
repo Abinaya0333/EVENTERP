@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from django.contrib.auth import get_user_model
-=======
-from django.db import models
->>>>>>> ccb9f562e7b424c9b22862534d480c809f89c3d9
 from django.db.models import Count
 from django.utils import timezone
 from rest_framework import viewsets
